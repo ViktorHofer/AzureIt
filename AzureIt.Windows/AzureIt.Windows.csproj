@@ -24,9 +24,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseProjectNToolchain>true</UseProjectNToolchain>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -139,6 +141,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="AzureIt.Windows_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -149,6 +152,41 @@
   <ItemGroup>
     <Folder Include="Themes\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MetroLog">
+      <HintPath>..\packages\MetroLog.0.8.6.1\lib\netcore45\MetroLog.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroLog.Platform">
+      <HintPath>..\packages\MetroLog.0.8.6.1\lib\netcore45\MetroLog.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroLog.WinRT">
+      <HintPath>..\packages\MetroLog.0.8.6.1\lib\netcore45\MetroLog.WinRT.winmd</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Mvvm">
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\windows8\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Mvvm.Store">
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\windows8\Microsoft.Practices.Prism.Mvvm.Store.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.SharedInterfaces">
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\windows8\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.StoreApps">
+      <HintPath>..\packages\Prism.StoreApps.2.0.0\lib\windows8\Microsoft.Practices.Prism.StoreApps.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.StoreApps.Windows">
+      <HintPath>..\packages\Prism.StoreApps.2.0.0\lib\windows8\Microsoft.Practices.Prism.StoreApps.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\win8\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\win8\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

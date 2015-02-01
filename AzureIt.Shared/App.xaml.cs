@@ -1,93 +1,28 @@
-﻿using AzureIt.Views;
+﻿using MetroLog;
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Unity;
 using System;
-using Windows.ApplicationModel;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
-// Die Vorlage "Leere Anwendung" ist unter http://go.microsoft.com/fwlink/?LinkId=234227 dokumentiert.
 
 namespace AzureIt
 {
-    /// <summary>
-    /// Stellt das anwendungsspezifische Verhalten bereit, um die Standardanwendungsklasse zu ergänzen.
-    /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : MvvmAppBase
     {
-        /// <summary>
-        /// Initialisiert das Singletonanwendungsobjekt. Dies ist die erste Zeile von erstelltem Code
-        /// und daher das logische Äquivalent von main() bzw. WinMain().
-        /// </summary>
+        private readonly IUnityContainer _unityContainer = new UnityContainer();
+
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new MetroLog.Targets.FileStreamingTarget());
+            GlobalCrashHandler.Configure();
         }
 
-        /// <summary>
-        /// Wird aufgerufen, wenn die Anwendung durch den Endbenutzer normal gestartet wird.  Weitere Einstiegspunkte
-        /// werden verwendet, wenn die Anwendung zum Öffnen einer bestimmten Datei, zum Anzeigen
-        /// von Suchergebnissen usw. gestartet wird.
-        /// </summary>
-        /// <param name="e">Details über Startanforderung und -prozess.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
-
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // App-Initialisierung nicht wiederholen, wenn das Fenster bereits Inhalte enthält.
-            // Nur sicherstellen, dass das Fenster aktiv ist.
-            if (rootFrame == null)
-            {
-                // Einen Rahmen erstellen, der als Navigationskontext fungiert und zum Parameter der ersten Seite navigieren
-                rootFrame = new Frame();
-
-                // TODO: diesen Wert auf eine Cachegröße ändern, die für Ihre Anwendung geeignet ist
-                rootFrame.CacheSize = 1;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // TODO: Zustand von zuvor angehaltener Anwendung laden
-                }
-
-                // Den Rahmen im aktuellen Fenster platzieren
-                Window.Current.Content = rootFrame;
-            }
-
-            if (rootFrame.Content == null)
-            {
-                // Wenn der Navigationsstapel nicht wiederhergestellt wird, zur ersten Seite navigieren
-                // und die neue Seite konfigurieren, indem die erforderlichen Informationen als Navigationsparameter
-                // übergeben werden
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
-
-            // Sicherstellen, dass das aktuelle Fenster aktiv ist
-            Window.Current.Activate();
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Wird aufgerufen, wenn die Ausführung der Anwendung angehalten wird.  Der Anwendungszustand wird gespeichert,
-        /// ohne zu wissen, ob die Anwendung beendet oder fortgesetzt wird und die Speicherinhalte dabei
-        /// unbeschädigt bleiben.
-        /// </summary>
-        /// <param name="sender">Die Quelle der Anhalteanforderung.</param>
-        /// <param name="e">Details zur Anhalteanforderung.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-
-            // TODO: Anwendungszustand speichern und alle Hintergrundaktivitäten beenden
-            deferral.Complete();
-        }
+        protected override object Resolve(Type type) => _unityContainer.Resolve(type);
     }
 }
